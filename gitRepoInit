@@ -1,6 +1,9 @@
 #! /bin/bash
-#First git commit commande
+#init repo files
+repo='C'
+urlrepo='Pixailz/C.git'
+git clone https://github.com/$urlrepo
 git init
 git commit -m "first commit"
-git remote add origin https://github.com/Pixailz/*.git
-git push -u origin master
+git remote add origin https://github.com/Pixailz/$repo.git
+git push --set-upstream origin master
