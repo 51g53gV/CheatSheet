@@ -12,6 +12,7 @@ Nmap scan
 	nmap -sS 192.168.1.1<-------------------//SYN Stealth scan of services
 	nmap -sS -sV 192.168.1.1<---------------//SYN Stealth scan of version
 	nmap -Pn 192.168.1.1<-------------------//Ping scan with port scanning
+	nmap -A 192.168.1.1<--------------------//Agressive scan
 
 ->Port scan
 	nmap -p 22 192.168.1.1<-----------------//Scan a signle port(22)
@@ -21,7 +22,7 @@ Nmap scan
 
 ->Android Scan
 	nmap -sn 192.168.1.1<-------------------//Ping scan without port scanning/Discover Android devices
-	nmap -Pn 192.168.1.1<-------------------//
+	nmap -Pn 192.168.1.1<-------------------//Consider all host up
 
 ===========================================================================================================================================================================================================
 MsfConsole
