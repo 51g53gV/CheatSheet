@@ -69,4 +69,5 @@ Linux utils
 ->Netdiscover
 	netdiscover<----------------------------------------------------------------//Discover common local ip
 	netdiscover -r 192.168.0.0/16<----------------------------------------------//Discover range of ip
-	
+->History
+	history<--------------------------------------------------------------------//Display history of a terminal
