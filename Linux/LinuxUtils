@@ -1,0 +1,376 @@
+=================================================================================================================
+([Linux utils])
+=================================================================================================================
+-----------------------------------------------------------------------------------------------------------------
+[COMMAND]
+-----------------------------------------------------------------------------------------------------------------
+->Set language
+	dpkg-reconfigure locales
+
+->Netstat
+	netstat -u<-----------------------------------------------------------------//List UDP ports
+	netstat -t<-----------------------------------------------------------------//List TCP ports
+	netstat -a<-----------------------------------------------------------------//List all ports
+	netstat -l<-----------------------------------------------------------------//List listenning connection
+	netstat -s<-----------------------------------------------------------------//Show statistic
+	netstat -p<-----------------------------------------------------------------//Show PID with associated connections
+	netstat -e<-----------------------------------------------------------------//Show all ethernet connections
+	netstat -n<-----------------------------------------------------------------//Show IP instead of DNS name
+	netstat -i<-----------------------------------------------------------------//Show connection stats by interface
+
+	EXEMPLE:
+	netstat -et<----------------------------------------------------------------//List all ethernet TCP connection
+
+->History of terminal
+	history<--------------------------------------------------------------------//Display history of a terminal
+
+->Which
+	which<-----------------------------//print out where the command is stored
+
+->Ls
+	ls -a<-----------------------------//List ALL files and folders
+	ls -A<-----------------------------//List ALL files and folders except . and ..
+	ls -l<-----------------------------//List files and folders with details
+	ls -F<-----------------------------//List files and folders with there types (/ for folder and @ for link) 
+	ls -R<-----------------------------//List files and folders with there sub-folder
+	ls -t<-----------------------------//List with date filter (newer first)
+	ls -tr<----------------------------//List with date filter (older first)
+	ls -h<-----------------------------//List files and folders with the space in human readable
+
+->Du
+	du <-------------------------------//Show size of files in current directory
+	du -h<-----------------------------//Show size in human readable format
+	du -a<-----------------------------//Show size of all
+	du -s<-----------------------------//Show totale size of current folder
+
+->mkdir
+	mkdir -p folder/file<--------------//Create Folder and subfolder
+
+->Find
+	find / -name "files"<----------------------------------//Find "files" in "/"
+	find / -name "files" -type d<--------------------------//Find directory name "files" in "/"
+	find / -name "files" -type f<--------------------------//Find files name "files" in "/"
+	find / -name "*.jpg" -delete<--------------------------//Find and delete all files with jpg extansion
+	find / -name "*.jpg" -exec chmod 600 {} \;<------------//Find and execute chmod 600 to all file with jpg extension
+														   //"{}" replace by the name of the file and command must end by "\;"
+    find / -name "*.jpg" 2>/dev/null<----------------------//Find and print all jpg files WITHOUT the permission denied flag
+
+->Grep
+	grep word /etc/passwd<------------------------------//Grep "word" from /etc/passwd
+	grep -i word /etc/passwd<---------------------------//Grep "word" from /etc/passwd case insensitively
+	grep -n word /etc/passwd<---------------------------//Grep "word" with lines
+	grep -v word /etc/passwd<---------------------------//Grep all sentence except "word"
+	grep -r word /etc/<---------------------------------//Grep "word" in all the /etc folder (recursively)
+
+->Sort
+	sort text.txt<--------------------------------------//Sort alphabetically
+	sort -o sorted_text.txt text.txt<-------------------//Sort alphabetically and output it in a files
+	sort -r text.txt<-----------------------------------//Revert sort alphabetically
+	sort -R text.txt<-----------------------------------//Sort randomly
+	sort -n number.txt<---------------------------------//Sort by number
+
+->Wc
+	wc text.txt<----------------------------------------//Count lines, word and octet
+	wc -l text.txt<-------------------------------------//Count only lines
+	wc -w text.txt<-------------------------------------//Count only words
+	wc -c text.txt<-------------------------------------//Count only octets
+	wc -m text.txt<-------------------------------------//Count only character
+
+->Uniq
+	uniq text.txt<--------------------------------------//Delete non uniq occurence 
+	uniq text.txt converted.txt<------------------------//Delete non uniq occurence and save it
+	uniq -c text.txt<-----------------------------------//Count the number of occurence
+	uniq -d text.txt<-----------------------------------//Show only non uniq occurence
+
+->Cut
+	cut -c 2-5 text<------------------------------------//Cut from 2nd to 5th char of text
+	cut -c -3 text<-------------------------------------//Cut from begin to the 3th char of text
+	cut -c 3- text<-------------------------------------//Cut from 3th to the last char of text
+
+														//-d , -> means delimited by 
+														//-f 1 -> the section to cut, in case 1
+
+	cut -d , -f 1 text<---------------------------------//Cut the first class delimited by ","
+	cut -d , -f 1,3 text<-------------------------------//Cut the 1st and the 3th class delimited by ","
+	cut -d , -f 2-4 text<-------------------------------//Cut from the 2nd to the 4th class delimited by ","
+	cut -d , -f -2 text<--------------------------------//Cut from begin to the 2nd class delimited by ","
+	cut -d , -f 2- text<--------------------------------//Cut from the 2nd to the last class delimited by ","
+
+
+->Head / Tail
+	head text<------------------------------------------//Return the first lines
+	head -n 3 text<-------------------------------------//Return the 3 first lines
+	tail text<------------------------------------------//Return the last lines
+	tail -n 3 text<-------------------------------------//Return the 3 last lines
+	tail -f text<---------------------------------------//Return the last lines every second
+	tail -f -s 3 text<----------------------------------//Return the last lines every 3 second
+
+->Mutli-Tasking
+	w<--------------------------------------------------//Display iformation like date, uptime, who
+		//OUTPUT :
+		-->
+		// 02:13:52 up  2:42,  1 user,  load average: 0.41, 0.42, 0.34
+		//USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+		//Pixailz  tty7     :0               23:31    2:42m 10:34   2.56s xfce4-session
+		<--
+	ps<-------------------------------------------------//Display statically processus (when we launch the command)
+		//OUTPUT :
+		-->
+		// PID TTY          TIME CMD
+		//4207 pts/0    00:00:00 bash
+		//8787 pts/0    00:00:00 ps
+		<--
+	ps -ef<---------------------------------------------//Display statically all processus
+		//OUTPUT
+		//UID          PID    PPID  C STIME TTY          TIME CMD
+		//root           1       0  0 Jan15 ?        00:00:01 /sbin/init splash
+		//root           2       0  0 Jan15 ?        00:00:00 [kthreadd]
+		//root           3       2  0 Jan15 ?        00:00:00 [rcu_gp]
+		//root           4       2  0 Jan15 ?        00:00:00 [rcu_par_gp]
+		//[...]
+		//root        8696       2  0 02:15 ?        00:00:00 [kworker/2:2-events]
+		//root        8786       2  0 02:21 ?        00:00:00 [kworker/2:1-mm_percpu_wq]
+		//root        8789       2  0 02:22 ?        00:00:00 [kworker/5:2-events]
+		//Pixailz     8794    4207  0 02:23 pts/0    00:00:00 ps -ef
+	ps -ejH<--------------------------------------------//Display statically all processus by tree
+		//OUTPUT
+		-->
+    	//PID    PGID     SID TTY          TIME CMD
+    	//  2       0       0 ?        00:00:00 kthreadd
+    	//  3       0       0 ?        00:00:00   rcu_gp
+    	//  4       0       0 ?        00:00:00   rcu_par_gp
+    	//  6       0       0 ?        00:00:00   kworker/0:0H-kblockd
+    	//[...]
+		//lightdm
+		//    870     870     870 tty7     00:11:41     Xorg
+		//   1129     856     856 ?        00:00:00     lightdm
+		//   1153    1153    1153 ?        00:00:03       xfce4-session
+		//   1186    1186    1186 ?        00:00:00         ssh-agent
+		//   1219    1153    1153 ?        00:02:06         xfwm4
+		//   1289    1153    1153 ?        00:00:22         xfce4-panel
+		//   1343    1153    1153 ?        00:00:00           panel-1-whisker
+		//   1360    1153    1153 ?        00:00:00           panel-15-systra
+		//   1361    1153    1153 ?        00:00:23           panel-16-pulsea
+		//   1362    1153    1153 ?        00:00:00           panel-17-notifi
+		//   1363    1153    1153 ?        00:00:00           panel-18-power-
+		//   1366    1153    1153 ?        00:00:00           panel-20-action
+		//   1538    1153    1153 ?        00:04:14           chrome
+		//   1543    1153    1153 ?        00:00:00             cat
+   		//   1544    1153    1153 ?        00:00:00             cat
+		//   1546    1153    1153 ?        00:00:00             chrome-sandbox
+		<--
+	ps -u Pixailz<--------------------------------------//Diplay statically processus by user
+		//OUTPUT
+		-->
+		//    PID TTY          TIME CMD
+		//   1136 ?        00:00:00 systemd
+		//   1137 ?        00:00:00 (sd-pam)
+		//   1147 ?        00:06:48 pulseaudio
+		//   1150 ?        00:00:00 gnome-keyring-d
+		//   1153 ?        00:00:03 xfce4-session
+		//   1161 ?        00:00:03 dbus-daemon
+		//   1186 ?        00:00:00 ssh-agent
+		<--
+	top<------------------------------------------------//Diplay dynamiqualy processus
+		//q 	-> Quit
+		//h 	-> Display help
+		//B 	-> Underline element
+		//f 	-> Remove colons
+		//F 	-> Change sorted by
+		//u 	-> Filter by user
+		//k 	-> Kill process (with PID) 
+		//s 	-> Change refresh rate
+
+	-->Kill
+		//CONTEXT
+		/*
+		ps -u Pixailz | grep sublime
+		   8312 ?        00:02:00 sublime_text
+		*/
+			kill 8312<--------------------------------------//Kill "sublime" processus
+			kill -9 8312<-----------------------------------//Force kill "sublime" processus
+
+		//CONTEXT
+		/*
+		ps -u Pixailz | grep chrome
+		   1538 ?        00:04:25 chrome
+		   1547 ?        00:00:00 chrome
+		   1554 ?        00:00:00 chrome
+		   1576 ?        00:00:48 chrome
+		   1592 ?        00:03:17 chrome
+		   1594 ?        00:00:00 chrome
+		   1624 ?        00:00:00 chrome
+		   1648 ?        00:00:19 chrome
+		   1660 ?        00:00:07 chrome
+		   1671 ?        00:00:13 chrome
+		   1679 ?        00:00:00 chrome
+		   1939 ?        00:07:13 chrome
+		   4288 ?        00:13:17 chrome
+		   8241 ?        00:00:01 chrome
+		   8249 ?        00:00:00 chrome
+		   9023 ?        00:00:00 chrome
+		   9031 ?        00:00:04 chrome
+		   9073 ?        00:00:00 chrome
+		*/
+			killall chrome<-----------------------------//Kill all chrome processus
+
+	->Background
+		cp RockToYou.txt &<-----------------------------//Execute cp command in background
+		nohup cp RockToYou.txt--------------------------//Execute cp command in background and not attached to term
+		bg<---------------------------------------------//Resume paused in background command
+		jobs<-------------------------------------------//Display background and stopped processus
+		fg<---------------------------------------------//Foregroung a processus
+
+	->Screen
+		screen<-----------------------------------------//Emulate screen
+		//USAGE :
+		//Ctrl a + c 		<-//Create new screen
+		//Ctrl a + w 		<-//List all screen
+		//Ctrl a + A 		<-//Rename current screen
+		//Ctrl a + n 		<-//Go to next screen
+		//Ctrl a + p 		<-//Go to previus screen
+		//Ctrl a + Ctrl a 	<-//Undo Ctrl a
+		//Ctrl a + 0-9		<-//Go to X screen
+		//Ctrl a + k 		<-//Kill current screen
+		//Ctrl a + S 		<-//Split screen in twice
+		//Ctrl a + Tab		<-//Change splited screen
+		//Ctrl a + c or 0-9 <-//Create new screen on the current or assign the screen number's
+		//Ctrl a + d 		<-//Detach screen
+		screen -r<--------------------------------------//Retrieve detached screen
+		screen -ls<-------------------------------------//List detached screen
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+[RACCOURCIS]
+-----------------------------------------------------------------------------------------------------------------
+->Ctrl + Shift + Alt
+	->Ctrl
+		Ctrl + R <-//For searching old command 
+		Ctrl + L <-//Erase terminal screen
+		Ctrl + D <-//Terminate terminal if command prompt is clear
+		Ctrl + A <-//Teleport the cursor to the begining of the prompt
+		Ctrl + E <-//Teleport the cursor to the end of the prompt
+		Ctrl + U <-//Delete all caractere on the left of the cursor (if it's at the end all delete)
+		Ctrl + K <-//Delete all caractere on the right of the cursor (if it's at the begin all delete)
+		Ctrl + W <-//Delete first word on the left of the cursor
+		Ctrl + Y <-//If you have previously delete anything with Ctrl U,K or W this will paste the deleted text
+		Ctrl + Z <-//Pause execution of command (bg for resume pause)
+	->Shift
+		Shift + PgUp	<-//Scroll up pages 
+		Shift + PgDown	<-//Scroll down pages
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+[FLUX]
+-----------------------------------------------------------------------------------------------------------------	
+-> THE ">" AND "2>" AND "2>&1"
+		cut -d , -f 1 unexistant_files.csv > students.txt 2> error.log
+			//here we can see two redirection : - > students.txt -> content of command in students.txt
+												  this is the standard output
+												- 2> error.log -> redirect eventual erros in error.log
+												  this is the error output
+												//NOTE : we can use 2>> output format to add the error
+												//belong the file
+
+		cut -d , -f 1 unexistant_files.csv > students.txt 2>&1
+												- All the content go to students.txt, standard and
+												  error output
+
+    -> THE "<" AND "<<"
+	    cat < notes.csv
+    		//Input files to command
+    	
+    	sort -n << FIN
+    		//Keyboard input
+	    	//Inputing this :
+    		//13
+    		//132
+	    	//10
+    		//131
+    		//34
+	    	//87
+    		//66
+    		//68
+	    	//65
+    		//Will result this : 
+    		//FIN
+	    	//10
+    		//13
+    		//34
+	    	//65
+    		//66
+    		//68
+	    	//87
+    		//131
+    		//132
+	    	//NOTE : the "FIN" is not the keyword to state the end of userinput so if you say this : 
+    		//		 sort -n << End 
+    		//		 this will work too
+    -> THE "|"
+
+    	du
+    		//Show files size. 
+
+    	du | sort -nr
+    		//Sort files by numbers big to small ..
+
+    	du | sort -nr | head
+    		//Show the first lines of sorted files by numbers big to small ....
+
+    	du | sort -nr | less
+    		//Show all the sorted files by numbers big to small page by page
+
+    	sudo grep log -Ir /var/log  | cut -d : -f 1  | sort | uniq
+    		// 1 : sudo grep log -Ir /var/log -> Search for log in /var/log (-I for except binary files)
+    		// 2 : cut -d : -f 1			  -> Cut the class delimited by ":"
+    		// 3 : sort 					  -> Sort result
+    		// 4 : uniq 					  -> Delete doublon
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+[FOLDER_STRUCT]
+-----------------------------------------------------------------------------------------------------------------
+	bin : contient des programmes (exécutables) susceptibles d'être utilisés par tous les utilisateurs de la machine.
+	
+	boot : fichiers permettant le démarrage de Linux.
+	
+	dev : fichiers contenant les périphériques. En fait – on en reparlera plus tard – ce dossier contient des 
+	sous-dossiers qui « représentent » chacun un périphérique. On y retrouve ainsi par exemple le fichier qui 
+	représente le lecteur CD.
+	
+	etc : fichiers de configuration.
+
+	home : répertoires personnels des utilisateurs. On en a déjà parlé un peu avant : c'est dans ce dossier 
+	que vous placerez vos fichiers personnels, à la manière du dossierMes documentsde Windows.
+
+	Chaque utilisateur de l'ordinateur possède son dossier personnel. Par exemple, dans mon cas mon dossier personnel 
+	se trouve dans/home/mateo21/. S'il y avait un autre utilisateur (appelons-le Patrick) sur mon ordinateur, il 
+	aurait eu droit lui aussi à son propre dossier :/home/patrick/.
+
+	lib : dossier contenant les bibliothèques partagées (généralement des fichiers.so) utilisées par les programmes. 
+	C'est en fait là qu'on trouve l'équivalent des.dllde Windows.
+
+	media : lorsqu'un périphérique amovible (comme une carte mémoire SD ou une clé USB) est inséré dans votre 
+	ordinateur, Linux vous permet d'y accéder à partir d'un sous-dossier demedia. On parle de montage.
+
+	mnt : c'est un peu pareil quemedia, mais pour un usage plus temporaire.
+
+	opt : répertoire utilisé pour les add-ons de programmes.
+
+	proc : contient des informations système.
+
+	root : c'est le dossier personnel de l'utilisateur « root ». Normalement, les dossiers personnels sont placés 
+	danshome, mais celui de « root » fait exception. En effet, comme je vous l'ai dit dans le chapitre précédent, 
+	« root » est le superutilisateur, le « chef » de la machine en quelque sorte. Il a droit à un espace spécial.
+
+	sbin : contient des programmes système importants.
+
+	tmp : dossier temporaire utilisé par les programmes pour stocker des fichiers.
+
+	usr : c'est un des plus gros dossiers, dans lequel vont s'installer la plupart des programmes demandés par 
+	l'utilisateur.
+
+	var : ce dossier contient des données « variables », souvent des logs (traces écrites de ce qui s'est passé 
+	récemment sur l'ordinateur).
+-----------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-userInput=0
+echo "Execution of script:$0"
+echo "Please enter the name of the user:$1"
 
-read -p "Enter something : " userInput
+#Adding user
 
-echo "$userInput"
+sudo adduser --home /$1 $1
