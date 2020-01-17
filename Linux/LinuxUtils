@@ -53,8 +53,11 @@
 	find / -name "*.jpg" -delete<--------------------------//Find and delete all files with jpg extansion
 	find / -name "*.jpg" -exec chmod 600 {} \;<------------//Find and execute chmod 600 to all file with jpg extension
 														   //"{}" replace by the name of the file and command must end by "\;"
-    find / -name "*.jpg" 2>/dev/null<----------------------//Find and print all jpg files WITHOUT the permission denied flag
+    find / -name "*.jpg" 2>/dev/null<--------------------------//Find and print all jpg files WITHOUT the permission denied flag
 
+->Seq
+	seq 1 10<-------------------------------------------//Generate number from 1 to 10
+	seq 1 2 10<-----------------------------------------//Generate number 1 3 5 7 9
 ->Grep
 	grep word /etc/passwd<------------------------------//Grep "word" from /etc/passwd
 	grep -i word /etc/passwd<---------------------------//Grep "word" from /etc/passwd case insensitively
@@ -401,3 +404,5 @@
 	var : ce dossier contient des données « variables », souvent des logs (traces écrites de ce qui s'est passé 
 	récemment sur l'ordinateur).
 -----------------------------------------------------------------------------------------------------------------
+
+Une bonne fonction,  c'est une fonction qui traite d'un élément spécifique et récurrent dans votre script.
