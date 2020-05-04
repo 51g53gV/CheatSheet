@@ -1,72 +1,47 @@
 #!/bin/bash
-# Kernel Builder V1.0.0 by Pixailz
+# Kernel Builder V1.0.1 by Pixailz
 
-sourceFinder (){
-  loopSourceFinder=true
-  choiceSourceFinder=""
+sourceFinderDJY (){
+  
+  loopSourceDJY=true
+  choiceSourceDJY=""
+  sourcePathDJY=""
 
-  allPath=`find -type d -name "**DJY-Nethunter-Andrax-Kernel-Source**"`
+  allPathDJY=`find -type d -name "**DJY-Nethunter-Andrax-Kernel-Source**"`
 
-  sourcePath1=`echo $allPath | cut -d" " -f1`
-  sourcePath2=`echo $allPath | cut -d" " -f2`
+  sourcePathDJY1=`echo $allPathDJY | cut -d" " -f1`
+  sourcePathDJY2=`echo $allPathDJY | cut -d" " -f2`
 
-  while [[ "$loopSourceFinder" == true  ]]; do
+  while [[ "$loopSourceDJY" == true  ]]; do
+  
+    clear
     
-	  echo -e "$(echo $allPath | wc -w) path found.\nPlease choose one.\n1 : $(echo $sourcePath1)\n2 : $(echo $sourcePath2)"
-    read -p "Pix@builder:~#" choiceSource
-  done
-}
-sourceFinder
-echo $sourcePath1
-echo $sourcePath2
+	  echo -e "$(echo $allPathDJY | wc -w) path found.\nPlease choose one.\n1 : $(echo $sourcePathDJY1)\n2 : $(echo $sourcePathDJY2)"
+    read -p "Pix@builder:~#" choiceSourceDJY
+    
+    if [[ "$choiceSourceDJY" == "1" ]]; then
+      loopSourceDJY=false
+      sourcePathDJY=$sourcePathDJY1
+      buildDJY
 
-mainMenu (){
-
-  loopMainMenu=true
-  choiceMainMenu=""
-  
-  while [[ "$loopMainMenu" == true ]]; do
-    clear
-    echo -e "Main Menu\n\t1 : Fajita"
-    read -p "Pix@builder:~#" choiceMainMenu
-    if [[ "$choiceMainMenu" == "1" ]]; then
-      loopMainMenu=false
-      fajitaMenu
+    elif [[ "$choiceSourceDJY" == "2"]]; then
+      loopSourceDJY=false
+      sourcePathDJY=$sourcePathDJY2
+      buildDJY
+      
     else
       echo -e "Wrong choice !"
-      sleep 2
+      sleep 1.5
+      
     fi
   done
 }
 
-fajitaMenu (){
-  loopFajitaMenu=true
-  choiceFajitaMenu=""
-  
-  while [[ "$loopFajitaMenu" == true ]]; do
-    clear
-    echo -e "Fajita Menu\n\t1 : DJY-NetHunter"
-    read -p "Pix@builder:~#" choiceFajitaMenu
-    if [[ "$choiceFajitaMenu" == "1" ]]; then
-      loopFajitaMenu=false
-      djyMenu
-    else
-      echo -e "Wrong choice !"
-      sleep 2
-    fi
-  done
+buildDJY (){
+  echo $sourcePathDJY
 }
 
-djyMenu (){
+sourceFinderDJY
 
-  loopDJYMenu=true
-  pathDJYMenu=""
-
-  while [[ "$loopDJYMenu" == true ]]; do
-    clear
-    echo -e "DJY-NetHunter\nEnter the absolute path of the DJY kernel source\n\"git clone https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source\""
-    echo -e "$(echo $choicDJYMenu)\nSource folder don't exist."
-    sleep 2
-  done
-}
-
+echo $sourcePathDJY1
+echo $sourcePathDJY2
