@@ -24,7 +24,7 @@ sourceFinderDJY (){
       sourcePathDJY=$sourcePathDJY1
       buildDJY
 
-    elif [[ "$choiceSourceDJY" == "2"]]; then
+    elif [[ "$choiceSourceDJY" == "2" ]]; then
       loopSourceDJY=false
       sourcePathDJY=$sourcePathDJY2
       buildDJY
