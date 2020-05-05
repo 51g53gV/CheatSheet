@@ -17,7 +17,7 @@ sourceFinderDJY (){
   
     clear
     
-	  echo -e "$(echo $allPathDJY | wc -w) path found.\nPlease choose one.\n1 : $(echo $sourcePathDJY1)\n2 : $(echo $sourcePathDJY2)"
+    echo -e "$(echo $allPathDJY | wc -w) path found.\nPlease choose one.\n1 : $(echo $sourcePathDJY1)\n2 : $(echo $sourcePathDJY2)"
     read -p "Pix@builder:~#" choiceSourceDJY
     
     if [[ "$choiceSourceDJY" == "1" ]]; then
@@ -46,7 +46,7 @@ buildDJY (){
   echo -e "Downloading DJY toolchain."
   git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains
   
-# save toolchain path for export
+  # save toolchain path for export
   toolchainPathDJY="$(pwd)/DJY-Clang-Binutils-Comprehensive-Toolchains"
   
   echo -e "Moving to source dir"
