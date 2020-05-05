@@ -118,3 +118,29 @@ buildDownloadDJY (){
   make CC=clang O=./out
 }
 
+mainMenu (){
+  
+  loopMainMenu=true
+  choiceMainMenu=""
+  
+  while [[ "$loopMainMenu" == true ]]; do
+    echo "Main menu"
+    echo "  1 : Download and build DJY-Kernel"
+    echo "  2 : Search and build DJY-Kernel"
+    read -p "Pix@builder:~#" choiceMainMenu
+    
+    if [[ "$choiceMainMenu" == "1" ]]; then
+      loopMainMenu=false
+      buildDownloadDJY
+      
+    elif [[ "$choiceMainMenu" == "2" ]]; then
+      loopMainMenu=false
+      sourceFinderDJY
+      
+    else
+      echo "Wrong choice !"
+      sleep 1.5
+      
+    fi
+  done
+}
