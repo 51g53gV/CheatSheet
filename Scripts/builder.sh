@@ -124,6 +124,8 @@ mainMenu (){
   choiceMainMenu=""
   
   while [[ "$loopMainMenu" == true ]]; do
+    clear
+    
     echo "Main menu"
     echo "  1 : Download and build DJY-Kernel"
     echo "  2 : Search and build DJY-Kernel"
