@@ -75,42 +75,46 @@ buildDJY (){
   make CC=clang O=./out
 }
 
-# checking depedencies 
-apt-get update && apt-get upgrade
-apt-get install build-essential
+buildDownloadDJY (){
 
-# Downloading and cd source kernel
-git clone https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source && cd DJY-Nethunter-Andrax-Kernel-Source
-sourcePath
-
-# Export source path and go back
-sourcePath=`pwd` && cd ..
-
-# Downloading and cd toolchain
-git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains && cd DJY-Clang-Binutils-Comprehensive-Toolchains
-
-# Export toplchain path and go back to the source 
-toolchainPath=`pwd` && cd ../DJY-Nethunter-Andrax-Kernel-Source
-
-# Exporting some utils var
-export ARCH=arm64
-export CROSS_COMPILE=$toolchainPath
-export CONFIG_BUILD_ARM64_DT_OVERLAY=y
-
-# Make (1/5) clean
-make CC=clang O=./out clean
-make CC=clang O=./out mrproper
+  # checking depedencies 
+  apt-get update && apt-get upgrade
+  apt-get install build-essential
   
-# Make (2/5) config
-make CC=clang O=./out sdm845-perf_defconfig
- 
-# Make (3/5) prepare
- 
-make CC=clang O=./out prepare
-make CC=clang O=./out modules_prepare
+  # Downloading and cd source kernel
+  git clone https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source && cd DJY-Nethunter-Andrax-Kernel-Source
+  sourcePath
   
-# Make (4/5) modules
-make CC=clang O=./out modules
+  # Export source path and go back
+  sourcePath=`pwd` && cd ..
   
-# Make (5/5) final
-make CC=clang O=./out
+  # Downloading and cd toolchain
+  git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains && cd DJY-Clang-Binutils-Comprehensive-Toolchains
+  
+  # Export toplchain path and go back to the source 
+  toolchainPath=`pwd` && cd ../DJY-Nethunter-Andrax-Kernel-Source
+  
+  # Exporting some utils var
+  export ARCH=arm64
+  export CROSS_COMPILE=$toolchainPath
+  export CONFIG_BUILD_ARM64_DT_OVERLAY=y
+  
+  # Make (1/5) clean
+  make CC=clang O=./out clean
+  make CC=clang O=./out mrproper
+    
+  # Make (2/5) config
+  make CC=clang O=./out sdm845-perf_defconfig
+   
+  # Make (3/5) prepare
+  
+  make CC=clang O=./out prepare
+  make CC=clang O=./out modules_prepare
+    
+  # Make (4/5) modules
+  make CC=clang O=./out modules
+    
+  # Make (5/5) final
+  make CC=clang O=./out
+}
+
