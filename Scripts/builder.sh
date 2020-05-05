@@ -144,3 +144,5 @@ mainMenu (){
     fi
   done
 }
+
+mainMenu
