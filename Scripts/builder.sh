@@ -1,120 +1,60 @@
 #!/bin/bash
-# Kernel Builder V1.2.0 by Pixailz
-
-sourceFinderDJY (){
-  
-  loopSourceDJY=true
-  choiceSourceDJY=""
-  sourcePathDJY=""
-  
-  echo -e "Searching ..."
-  allPathDJY=`find -type d -name "**DJY-Nethunter-Andrax-Kernel-Source**"`
-
-  sourcePathDJY1=`echo $allPathDJY | cut -d" " -f1`
-  sourcePathDJY2=`echo $allPathDJY | cut -d" " -f2`
-
-  while [[ "$loopSourceDJY" == true  ]]; do
-  
-    clear
-    
-    echo -e "$(echo $allPathDJY | wc -w) path found.\nPlease choose one.\n1 : $(echo $sourcePathDJY1)\n2 : $(echo $sourcePathDJY2)"
-    read -p "Pix@builder:~#" choiceSourceDJY
-    
-    if [[ "$choiceSourceDJY" == "1" ]]; then
-      loopSourceDJY=false
-      sourcePathDJY=$sourcePathDJY1
-      buildDJY
-
-    elif [[ "$choiceSourceDJY" == "2" ]]; then
-      loopSourceDJY=false
-      sourcePathDJY=$sourcePathDJY2
-      buildDJY
-      
-    else
-      echo -e "Wrong choice !"
-      sleep 1.5
-      
-    fi
-  done
-}
-
-buildDJY (){
-  
-  echo -e "Preparing download of toolchain."
-  cd $sourcePathDJY && cd ..
-
-  echo -e "Downloading DJY toolchain."
-  git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains
-  
-  # save toolchain path for export
-  toolchainPathDJY="$(pwd)/DJY-Clang-Binutils-Comprehensive-Toolchains"
-  
-  echo -e "Moving to source dir"
-  cd $sourcePathDJY
-  
-  echo -e "Exporting some utils var ;)"
-  export ARCH=arm64
-  export CROSS_COMPILE=$toolchainPathDJY
-  export CONFIG_BUILD_ARM64_DT_OVERLAY=y
-  
-  echo -e "Make (1/5) clean"
-  make CC=clang O=./out clean
-  make CC=clang O=./out mrproper
-  
-  echo -e "Make (2/5) config"
-  make CC=clang O=./out sdm845-perf_defconfig
-  
-  echo -e "Make (3/5) prepare"
-  make CC=clang O=./out prepare
-  make CC=clang O=./out modules_prepare
-  
-  echo -e "Make (4/5) modules"
-  make CC=clang O=./out modules
-  
-  echo -e "Make (5/5) final"
-  make CC=clang O=./out
-}
+# Kernel Builder V1.3.0 by Pixailz
 
 buildDownloadDJY (){
 
-  # checking depedencies 
+  echo -e "\nChecking depedencies\n" 
   apt-get update && apt-get upgrade
   apt-get install build-essential
   
-  # Downloading and cd source kernel
-  git clone https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source && cd DJY-Nethunter-Andrax-Kernel-Source
-  sourcePath
+  if [[ ! -d DJY-Nethunter-Andrax-Kernel-Source ]]; then
+    echo -e "\nDownloading source dir\n"
+    git clone https://github.com/Pixailz/DJY-Nethunter-Andrax-Kernel-Source
+  else
+    echo -e "\nSource dir already exist\n"
+  fi
   
-  # Export source path and go back
-  sourcePath=`pwd` && cd ..
+  if [[ ! -d DJY-Clang-Binutils-Comprehensive-Toolchains ]]; then
+    echo -e "\nDownloading toolchain\n"
+    git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains
+  else
+    echo -e "\nToolchain dir already exist\n" 
+  fi
+
+  echo -e "\nExporting some utils var\n"
+  currentPath=$(pwd)
+  sourcePath=$(echo $currentPath)/DJY-Nethunter-Andrax-Kernel-Source
+  toolchainPath=$(echo $currentPath)/DJY-Clang-Binutils-Comprehensive-Toolchains/bin/aarch64-linux-gnu-
   
-  # Downloading and cd toolchain
-  git clone https://github.com/johanlike/DJY-Clang-Binutils-Comprehensive-Toolchains && cd DJY-Clang-Binutils-Comprehensive-Toolchains
+  echo -e "Current Path :\t\t$(echo $currentPath)"
+  echo -e "Source Path :\t\t$(echo $sourcePath)"
+  echo -e "ToolchainPath :\t\t$(echo $toolchainPath)"
+  read -p "press q to quit" -n 1 choiceConfirm
   
-  # Export toplchain path and go back to the source 
-  toolchainPath=`pwd` && cd ../DJY-Nethunter-Andrax-Kernel-Source
-  
-  # Exporting some utils var
+  case $choiceConfirm in 
+    [qQnN]*) exit 1;;
+  esac
+
   export ARCH=arm64
-  export CROSS_COMPILE=$toolchainPath
+  export CROSS_COMPILE=$(echo $toolchainPath)
   export CONFIG_BUILD_ARM64_DT_OVERLAY=y
   
-  # Make (1/5) clean
+  echo -e "\nMake (1/5) clean\n"
   make CC=clang O=./out clean
   make CC=clang O=./out mrproper
     
-  # Make (2/5) config
+  echo -e "\nMake (2/5) config\n"
   make CC=clang O=./out sdm845-perf_defconfig
    
-  # Make (3/5) prepare
+  echo -e "\nMake (3/5) prepare\n"
   
   make CC=clang O=./out prepare
   make CC=clang O=./out modules_prepare
     
-  # Make (4/5) modules
+  echo "\nMake (4/5) modules\n"
   make CC=clang O=./out modules
     
-  # Make (5/5) final
+  echo -e "\nMake (5/5) final\n"
   make CC=clang O=./out
 }
 
@@ -128,16 +68,11 @@ mainMenu (){
     
     echo "Main menu"
     echo "  1 : Download and build DJY-Kernel"
-    echo "  2 : Search and build DJY-Kernel"
-    read -p "Pix@builder:~#" choiceMainMenu
+    read -p "Pix@builder:~# " choiceMainMenu
     
     if [[ "$choiceMainMenu" == "1" ]]; then
       loopMainMenu=false
       buildDownloadDJY
-      
-    elif [[ "$choiceMainMenu" == "2" ]]; then
-      loopMainMenu=false
-      sourceFinderDJY
       
     else
       echo "Wrong choice !"
