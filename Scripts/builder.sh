@@ -51,7 +51,7 @@ buildDownloadDJY (){
   make CC=clang O=./out prepare
   make CC=clang O=./out modules_prepare
     
-  echo "\nMake (4/5) modules\n"
+  echo -e "\nMake (4/5) modules\n"
   make CC=clang O=./out modules
     
   echo -e "\nMake (5/5) final\n"
