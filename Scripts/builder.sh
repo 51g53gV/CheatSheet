@@ -1,15 +1,35 @@
 #!/bin/bash
-# Kernel Builder V1.3.0 by Pixailz
+# Scripts V1.4.0 by Pixailz
+# Kernel Source by DJY (https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source)
 
-buildDownloadDJY (){
-
-  echo -e "\nChecking depedencies\n" 
-  apt-get update && apt-get upgrade
-  apt-get install build-essential
+mainMenu (){
   
+  loopMainMenu=true
+  choiceMainMenu=""
+  
+  while [[ "$loopMainMenu" == true ]]; do
+    clear
+    
+    echo "Main menu"
+    echo "  1 : Download and build DJY-Kernel"
+    read -p "root@builder:~# " choiceMainMenu
+    
+    if [[ "$choiceMainMenu" == "1" ]]; then
+      loopMainMenu=false
+      buildDownloadDJY
+      
+    else
+      echo "Wrong choice !"
+      sleep 1.5
+      
+    fi
+  done
+}
+
+downloadDJY (){
   if [[ ! -d DJY-Nethunter-Andrax-Kernel-Source ]]; then
     echo -e "\nDownloading source dir\n"
-    git clone https://github.com/Pixailz/DJY-Nethunter-Andrax-Kernel-Source
+    git clone https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source
   else
     echo -e "\nSource dir already exist\n"
   fi
@@ -20,7 +40,9 @@ buildDownloadDJY (){
   else
     echo -e "\nToolchain dir already exist\n" 
   fi
+}
 
+confirmDJY (){
   echo -e "\nExporting some utils var\n"
   currentPath=$(pwd)
   sourcePath=$(echo $currentPath)/DJY-Nethunter-Andrax-Kernel-Source
@@ -28,17 +50,21 @@ buildDownloadDJY (){
   
   echo -e "Current Path :\t\t$(echo $currentPath)"
   echo -e "Source Path :\t\t$(echo $sourcePath)"
-  echo -e "ToolchainPath :\t\t$(echo $toolchainPath)"
+  echo -e "ToolchainPath :\t\t$(echo $toolchainPath)\n"
   read -p "press q to quit" -n 1 choiceConfirm
-  
+
   case $choiceConfirm in 
     [qQnN]*) exit 1;;
   esac
+}
 
+exportDJY (){
   export ARCH=arm64
   export CROSS_COMPILE=$(echo $toolchainPath)
   export CONFIG_BUILD_ARM64_DT_OVERLAY=y
-  
+}
+
+buildDJY (){
   echo -e "\nMake (1/5) clean\n"
   make CC=clang O=./out clean
   make CC=clang O=./out mrproper
@@ -58,28 +84,12 @@ buildDownloadDJY (){
   make CC=clang O=./out
 }
 
-mainMenu (){
-  
-  loopMainMenu=true
-  choiceMainMenu=""
-  
-  while [[ "$loopMainMenu" == true ]]; do
-    clear
-    
-    echo "Main menu"
-    echo "  1 : Download and build DJY-Kernel"
-    read -p "Pix@builder:~# " choiceMainMenu
-    
-    if [[ "$choiceMainMenu" == "1" ]]; then
-      loopMainMenu=false
-      buildDownloadDJY
-      
-    else
-      echo "Wrong choice !"
-      sleep 1.5
-      
-    fi
-  done
-}
-
 mainMenu
+
+downloadDJY
+
+confirmDJY
+
+exportDJY
+
+buildDJY
