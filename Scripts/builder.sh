@@ -3,7 +3,6 @@
 # Kernel Source by DJY (https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source)
 
 mainMenu (){
-  
   loopMainMenu=true
   choiceMainMenu=""
   
@@ -16,8 +15,7 @@ mainMenu (){
     
     if [[ "$choiceMainMenu" == "1" ]]; then
       loopMainMenu=false
-      buildDownloadDJY
-      
+    
     else
       echo "Wrong choice !"
       sleep 1.5
