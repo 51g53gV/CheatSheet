@@ -1,5 +1,5 @@
 #!/bin/bash
-# Scripts V1.4.0 by Pixailz
+# Scripts V1.4.1 by Pixailz
 # Kernel Source by DJY (https://github.com/johanlike/DJY-Nethunter-Andrax-Kernel-Source)
 
 mainMenu (){
