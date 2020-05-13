@@ -16,12 +16,11 @@ mainMenu (){
     
     if [[ "$choiceMainMenu" == "1" ]]; then
       loopMainMenu=false
-    
     else
       echo "Wrong choice !"
       sleep 1.5
-      
     fi
+
   done
 }
 
@@ -58,9 +57,11 @@ confirmDJY (){
 }
 
 exportDJY (){
-  export ARCH=arm64
-  export CROSS_COMPILE=$(echo $toolchainPath)
-  export CONFIG_BUILD_ARM64_DT_OVERLAY=y
+	export ARCH=arm64
+	export CROSS_COMPILE=$(echo $toolchainPath)
+	export CONFIG_BUILD_ARM64_DT_OVERLAY=y
+	export LITTLE_CPU_MASK=15
+	export BIG_CPU_MASK=240 
 }
 
 buildDJY (){
