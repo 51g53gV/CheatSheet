@@ -68,9 +68,10 @@ exportDJY (){
 buildDJY (){
   cd $(echo $sourcePath)
   echo -e "\nMake (1/5) clean\n"
+	make clean
+	make mrproper
 	make CC=clang O=./out clean
 	make CC=clang O=./out mrproper
-    
 	echo -e "\nMake (2/5) config\n"
 	#make CC=clang O=./out sdm845-perf_defconfig
 	make CC=clang O=./out oneplus6_defconfig
