@@ -58,9 +58,9 @@ confirmDJY (){
 exportDJY (){
 	export ARCH=arm64
 	export CROSS_COMPILE=$(echo $toolchainPath)
-	#export CONFIG_BUILD_ARM64_DT_OVERLAY=y
-	#export LITTLE_CPU_MASK=15
-	#export BIG_CPU_MASK=240
+	export CONFIG_BUILD_ARM64_DT_OVERLAY=y
+	export LITTLE_CPU_MASK=15
+	export BIG_CPU_MASK=240
 	#export MAC80211=y
 	#export WLAN_VENDOR_RALINK=y
 }
