@@ -72,12 +72,12 @@ buildDJY (){
 	make mrproper
 	make CC=clang O=./out clean
 	make CC=clang O=./out mrproper
+	
 	echo -e "\nMake (2/5) config\n"
 	#make CC=clang O=./out sdm845-perf_defconfig
 	make CC=clang O=./out oneplus6_defconfig
  
 	echo -e "\nMake (3/5) prepare\n"
-  
  	make CC=clang O=./out prepare
 	make CC=clang O=./out modules_prepare
     
