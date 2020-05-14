@@ -66,7 +66,8 @@ exportDJY (){
 }
 
 buildDJY (){
-  	echo -e "\nMake (1/5) clean\n"
+  cd $(echo $sourcePath)
+  echo -e "\nMake (1/5) clean\n"
 	make CC=clang O=./out clean
 	make CC=clang O=./out mrproper
     
